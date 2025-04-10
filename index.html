@@ -6,42 +6,50 @@
   <title>Payment Emix Store</title>
   <style>
     body {
-      background-image: url('https://ibb.co.com/pBThcXrw');
-      background-size: cover;
-      font-family: 'Segoe UI', sans-serif;
-      color: white;
-      text-align: center;
       margin: 0;
       padding: 0;
+      background: url('https://ibb.co.com/pBThcXrw') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    .marquee-container {
+      width: 100%;
+      overflow: hidden;
+      background-color: #000000cc;
+      padding: 10px 0;
+      box-sizing: border-box;
+      font-weight: bold;
+    }
+
+    .marquee-text {
+      display: inline-block;
+      white-space: nowrap;
+      animation: marquee 15s linear infinite;
+      color: #00ffaa;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
     }
 
     .container {
-      background: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0,0,0,0.7);
       padding: 30px;
       border-radius: 20px;
+      max-width: 400px;
       margin: 50px auto;
-      width: 90%;
-      max-width: 450px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.4);
-    }
-
-    h1 {
-      font-size: 2rem;
-      font-weight: bold;
-      margin-bottom: 20px;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+      box-shadow: 0 0 20px #00aaff;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.1);
-      margin: 15px 0;
-      padding: 20px;
+      background-color: rgba(255,255,255,0.1);
+      padding: 15px;
       border-radius: 12px;
+      margin: 15px 0;
     }
 
     button {
@@ -49,51 +57,31 @@
       color: white;
       border: none;
       padding: 10px 20px;
-      margin-top: 10px;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #008ecc;
-    }
-
-    .marquee-container {
-      width: 100%;
-      overflow: hidden;
-      background-color: #000000dd;
-      padding: 12px 0;
-      box-sizing: border-box;
-      margin-bottom: 10px;
-    }
-
-    .marquee-text {
-      display: inline-block;
-      white-space: nowrap;
-      padding-left: 100%;
-      animation: marquee 12s linear infinite;
-      color: #00ffaa;
       font-weight: bold;
     }
 
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
+    input[type="file"] {
+      margin-top: 10px;
+      border: none;
     }
 
     #success-message {
       display: none;
-      margin-top: 15px;
-    }
-
-    #success-message p {
-      margin: 5px 0;
-    }
-
-    .trx-id {
+      margin-top: 10px;
       font-weight: bold;
-      color: #00ffaa;
+      color: #00ff99;
+    }
+
+    h1 {
+      font-size: 1.7rem;
+      animation: fadeIn 2s infinite alternate;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0.5; }
+      to { opacity: 1; }
     }
   </style>
 </head>
@@ -101,7 +89,7 @@
 
   <div class="marquee-container">
     <div class="marquee-text">
-      Emix Store melayani pembayaran & top up game semua platform. Mau web seperti ini? Chat Emix sekarang!
+      Admin Emix melayani top up semua game & jasa pembuatan website premium. Hubungi Emix sekarang!
     </div>
   </div>
 
@@ -109,7 +97,7 @@
     <h1>Payment Emix Store</h1>
 
     <div class="card">
-      <p>Scan QRIS di bawah ini untuk pembayaran:</p>
+      <p>Scan QRIS di bawah ini untuk melakukan pembayaran:</p>
       <img src="https://qu.ax/srsEc.png" alt="QRIS" style="width: 100%; border-radius: 10px;">
     </div>
 
@@ -129,17 +117,15 @@
     </div>
 
     <div class="card">
-      <p>Setelah transfer, klik tombol di bawah untuk konfirmasi:</p>
-      <button onclick="showSuccess()">Saya sudah bayar</button>
-      <div id="success-message">
-        <p style="color: #00ff99;">Pembayaran berhasil dikonfirmasi!</p>
-        <p>Kode Transaksi: <span class="trx-id" id="trx-id"></span></p>
-        <p>Kami akan segera hubungi kamu via WhatsApp.</p>
-      </div>
+      <p>Upload bukti transfer kamu di sini:</p>
+      <input type="file" id="proofFile" accept="image/*">
+      <br><br>
+      <button onclick="submitProof()">Saya sudah bayar</button>
+      <div id="success-message"></div>
     </div>
 
     <div class="card">
-      <p>Atau hubungi langsung kami via WhatsApp:</p>
+      <p>Atau langsung hubungi kami via WhatsApp:</p>
       <a href="https://wa.me/62895391694499?text=Halo%20kak,%20saya%20sudah%20melakukan%20pembayaran" target="_blank">
         <button>Chat via WhatsApp</button>
       </a>
@@ -152,12 +138,36 @@
       alert("Nomor berhasil disalin!");
     }
 
-    function showSuccess() {
-      const success = document.getElementById('success-message');
-      const trxId = document.getElementById('trx-id');
-      const kodeUnik = 'EMIX-' + Math.floor(100000 + Math.random() * 900000);
-      trxId.textContent = kodeUnik;
-      success.style.display = 'block';
+    function submitProof() {
+      const fileInput = document.getElementById('proofFile');
+      const successMsg = document.getElementById('success-message');
+
+      if (!fileInput.files.length) {
+        alert("Harap upload bukti pembayaran terlebih dahulu.");
+        return;
+      }
+
+      const kode = "EMX-" + Math.floor(Math.random() * 90000 + 10000);
+      successMsg.innerHTML = `
+        Pembayaran dikonfirmasi! Kode transaksi kamu: <br><span style="color:#00ffaa;">${kode}</span><br>
+        Kode ini juga telah dikirim ke email Emix.
+      `;
+      successMsg.style.display = 'block';
+
+      // Simulasi pengiriman email
+      fetch('https://formsubmit.co/ajax/emixcustomerservice@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          KodeTransaksi: kode,
+          Pesan: "Ada pembayaran baru masuk ke Emix Store!",
+        })
+      }).then(response => response.json())
+        .then(data => console.log("Email terkirim:", data))
+        .catch(error => console.error("Gagal kirim email:", error));
     }
   </script>
 </body>
