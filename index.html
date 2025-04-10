@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Payment Emix Store</title>
   <style>
     body {
-      background-image: url('https://ibb.co.com/pBThcXrw');
+      background-image: url('https://qu.ax/iqJmg.jpg');
       background-size: cover;
+      background-position: center;
       font-family: Arial, sans-serif;
       color: white;
       text-align: center;
@@ -15,13 +16,22 @@
       padding: 0;
     }
 
+    .marquee {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 10px 0;
+      font-weight: bold;
+      color: #00ffcc;
+      font-size: 16px;
+    }
+
     .container {
       background: rgba(0, 0, 0, 0.6);
       padding: 30px;
       border-radius: 15px;
-      margin: 50px auto;
+      margin: 30px auto;
       width: 90%;
       max-width: 400px;
+      animation: fadeIn 2s ease-in-out;
     }
 
     .card {
@@ -41,67 +51,31 @@
       cursor: pointer;
     }
 
-    .note {
-      color: red;
+    #success-message {
+      display: none;
+      margin-top: 15px;
+      color: #00ff99;
       font-weight: bold;
-      margin-top: 20px;
     }
 
-    .blinking {
-      animation: blink 2s infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    .marquee-container {
-      width: 100vw;
-      overflow: hidden;
-      background-color: #000000dd;
-      padding: 10px 0;
-      box-sizing: border-box;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 1000;
-    }
-
-    .marquee-text {
-      display: inline-block;
-      white-space: nowrap;
-      padding-left: 100%;
-      animation: marquee 15s linear infinite;
-      color: #00ffaa;
-      font-weight: bold;
-      font-size: 1rem;
-    }
-
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-
-    h1.blinking {
-      margin-top: 80px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <div class="marquee-container">
-    <div class="marquee-text">
-      Admin Emix juga melayani top up semua game. Ingin punya website seperti ini? Hubungi Emix sekarang!
-    </div>
-  </div>
+  <marquee class="marquee" behavior="scroll" direction="left">
+    Admin Emix juga melayani top up semua game. Ingin punya website seperti ini? Hubungi Emix sekarang!
+  </marquee>
 
   <div class="container">
-    <h1 class="blinking" style="font-weight: bold;">Payment Emix Store</h1>
+    <h1 style="font-weight: bold; animation: fadeIn 2s ease-in-out;">Payment Emix Store</h1>
 
     <div class="card">
       <p>Scan QRIS di bawah ini untuk pembayaran:</p>
-      <img src="https://qu.ax/srsEc.png" alt="QRIS" style="width: 100%; border-radius: 10px; display: block; margin: 0 auto;">
+      <img src="https://qu.ax/srsEc.png" alt="QRIS" style="width: 100%; border-radius: 10px;">
     </div>
 
     <div class="card">
@@ -121,9 +95,9 @@
 
     <div class="card">
       <p>Setelah transfer, klik tombol di bawah untuk konfirmasi:</p>
-      <button onclick="showSuccess()">Saya sudah bayar</button>
-      <div id="success-message" style="display: none; margin-top: 15px;">
-        <p style="color: #00ff99; font-weight: bold;">Pembayaran berhasil dikonfirmasi!</p>
+      <button onclick="sendConfirmation()">Saya sudah bayar</button>
+      <div id="success-message">
+        <p>Pembayaran berhasil dikonfirmasi!</p>
         <p>Kami akan segera hubungi kamu via WhatsApp.</p>
       </div>
     </div>
@@ -142,9 +116,15 @@
       alert("Nomor berhasil disalin!");
     }
 
-    function showSuccess() {
+    function sendConfirmation() {
+      const kode = 'TRX-' + Math.floor(Math.random() * 1000000);
+      const pesan = encodeURIComponent(`Halo kak, saya sudah melakukan pembayaran.\nKode transaksi: ${kode}`);
+      const url = `https://wa.me/62895391694499?text=${pesan}`;
+      window.open(url, '_blank');
+
       document.getElementById('success-message').style.display = 'block';
     }
   </script>
+
 </body>
 </html>
