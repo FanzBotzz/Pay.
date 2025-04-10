@@ -1,174 +1,176 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Payment Emix Store</title>
   <style>
     body {
+      background-image: url('https://qu.ax/uvQWt.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      backdrop-filter: blur(4px);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
       margin: 0;
       padding: 0;
-      background: url('https://ibb.co.com/pBThcXrw') no-repeat center center fixed;
-      background-size: cover;
-      font-family: 'Arial', sans-serif;
-      color: white;
-      text-align: center;
-    }
+    }.container {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  border-radius: 20px;
+  margin: 50px auto;
+  width: 95%;
+  max-width: 500px;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+}
 
-    .marquee-container {
-      width: 100%;
-      overflow: hidden;
-      background-color: #000000cc;
-      padding: 10px 0;
-      box-sizing: border-box;
-      font-weight: bold;
-    }
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  margin: 15px 0;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.1);
+}
 
-    .marquee-text {
-      display: inline-block;
-      white-space: nowrap;
-      animation: marquee 15s linear infinite;
-      color: #00ffaa;
-    }
+button {
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
 
-    @keyframes marquee {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
+.blinking {
+  animation: blink 2s infinite;
+}
 
-    .container {
-      background-color: rgba(0,0,0,0.7);
-      padding: 30px;
-      border-radius: 20px;
-      max-width: 400px;
-      margin: 50px auto;
-      box-shadow: 0 0 20px #00aaff;
-    }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
 
-    .card {
-      background-color: rgba(255,255,255,0.1);
-      padding: 15px;
-      border-radius: 12px;
-      margin: 15px 0;
-    }
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  background-color: #000000cc;
+  padding: 10px 0;
+}
 
-    button {
-      background-color: #00aaff;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+.marquee-text {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: marquee 15s linear infinite;
+  color: #00ffaa;
+  font-weight: bold;
+  font-size: 1rem;
+}
 
-    input[type="file"] {
-      margin-top: 10px;
-      border: none;
-    }
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
 
-    #success-message {
-      display: none;
-      margin-top: 10px;
-      font-weight: bold;
-      color: #00ff99;
-    }
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  margin-top: 10px;
+  border: none;
+  font-size: 1rem;
+}
 
-    h1 {
-      font-size: 1.7rem;
-      animation: fadeIn 2s infinite alternate;
-    }
+input[type="file"] {
+  background: white;
+  color: black;
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0.5; }
-      to { opacity: 1; }
-    }
   </style>
 </head>
 <body>
-
   <div class="marquee-container">
     <div class="marquee-text">
-      Admin Emix melayani top up semua game & jasa pembuatan website premium. Hubungi Emix sekarang!
+      Admin Emix juga melayani top up semua game. Ingin punya website seperti ini? Hubungi Emix sekarang!
     </div>
+  </div>  <div class="container">
+    <h1 class="blinking" style="text-align:center;">Payment Emix Store</h1><div class="card">
+  <p>Scan QRIS di bawah ini untuk pembayaran:</p>
+  <img src="https://qu.ax/srsEc.png" alt="QRIS" style="width: 100%; border-radius: 10px;">
+</div>
+
+<div class="card">
+  <p><b>Dana:</b> 083137741581</p>
+  <button onclick="copyToClipboard('083137741581')">Salin</button>
+</div>
+
+<div class="card">
+  <p><b>OVO:</b> 083137741581</p>
+  <button onclick="copyToClipboard('083137741581')">Salin</button>
+</div>
+
+<div class="card">
+  <p><b>Gopay:</b> 083137741581</p>
+  <button onclick="copyToClipboard('083137741581')">Salin</button>
+</div>
+
+<div class="card">
+  <p><b>Total Transfer:</b></p>
+  <input type="number" id="jumlahTf" placeholder="Masukkan jumlah transfer">
+
+  <p><b>Upload Bukti Transfer:</b></p>
+  <input type="file" id="buktiTf" accept="image/*">
+
+  <button onclick="konfirmasiPembayaran()">Saya sudah bayar</button>
+
+  <div id="trx-info" style="display: none; margin-top: 15px;">
+    <p style="color: #00ff99; font-weight: bold;">Pembayaran berhasil dikonfirmasi!</p>
+    <p>Kode Transaksi Anda: <span id="kodeTrx"></span></p>
+    <p>Silakan cek WhatsApp atau email untuk info selanjutnya.</p>
   </div>
+</div>
 
-  <div class="container">
-    <h1>Payment Emix Store</h1>
+<div class="card">
+  <p>Atau langsung hubungi kami via WhatsApp:</p>
+  <a href="https://wa.me/62895391694499?text=Halo%20kak,%20saya%20sudah%20melakukan%20pembayaran" target="_blank">
+    <button>Chat via WhatsApp</button>
+  </a>
+</div>
 
-    <div class="card">
-      <p>Scan QRIS di bawah ini untuk melakukan pembayaran:</p>
-      <img src="https://qu.ax/srsEc.png" alt="QRIS" style="width: 100%; border-radius: 10px;">
-    </div>
-
-    <div class="card">
-      <p><b>Dana:</b> 083137741581</p>
-      <button onclick="copyToClipboard('083137741581')">Salin</button>
-    </div>
-
-    <div class="card">
-      <p><b>OVO:</b> 083137741581</p>
-      <button onclick="copyToClipboard('083137741581')">Salin</button>
-    </div>
-
-    <div class="card">
-      <p><b>Gopay:</b> 083137741581</p>
-      <button onclick="copyToClipboard('083137741581')">Salin</button>
-    </div>
-
-    <div class="card">
-      <p>Upload bukti transfer kamu di sini:</p>
-      <input type="file" id="proofFile" accept="image/*">
-      <br><br>
-      <button onclick="submitProof()">Saya sudah bayar</button>
-      <div id="success-message"></div>
-    </div>
-
-    <div class="card">
-      <p>Atau langsung hubungi kami via WhatsApp:</p>
-      <a href="https://wa.me/62895391694499?text=Halo%20kak,%20saya%20sudah%20melakukan%20pembayaran" target="_blank">
-        <button>Chat via WhatsApp</button>
-      </a>
-    </div>
-  </div>
-
-  <script>
+  </div>  <script>
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text);
       alert("Nomor berhasil disalin!");
     }
 
-    function submitProof() {
-      const fileInput = document.getElementById('proofFile');
-      const successMsg = document.getElementById('success-message');
+    function generateKodeTransaksi() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let result = 'TRX-';
+      for (let i = 0; i < 8; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    }
 
-      if (!fileInput.files.length) {
-        alert("Harap upload bukti pembayaran terlebih dahulu.");
+    function konfirmasiPembayaran() {
+      const jumlah = document.getElementById("jumlahTf").value;
+      const bukti = document.getElementById("buktiTf").files[0];
+
+      if (!jumlah || !bukti) {
+        alert("Mohon isi total transfer dan upload bukti pembayaran terlebih dahulu.");
         return;
       }
 
-      const kode = "EMX-" + Math.floor(Math.random() * 90000 + 10000);
-      successMsg.innerHTML = `
-        Pembayaran dikonfirmasi! Kode transaksi kamu: <br><span style="color:#00ffaa;">${kode}</span><br>
-        Kode ini juga telah dikirim ke email Emix.
-      `;
-      successMsg.style.display = 'block';
+      const kode = generateKodeTransaksi();
+      document.getElementById("kodeTrx").textContent = kode;
+      document.getElementById("trx-info").style.display = "block";
 
-      // Simulasi pengiriman email
-      fetch('https://formsubmit.co/ajax/emixcustomerservice@gmail.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          KodeTransaksi: kode,
-          Pesan: "Ada pembayaran baru masuk ke Emix Store!",
-        })
-      }).then(response => response.json())
-        .then(data => console.log("Email terkirim:", data))
-        .catch(error => console.error("Gagal kirim email:", error));
+      const email = "emixcustomerservice@gmail.com";
+      const subject = `Konfirmasi Pembayaran (${kode})`;
+      const body = `Halo Admin,%0A%0ASaya sudah melakukan pembayaran dengan detail:%0A- Total Transfer: ${jumlah}%0A- Kode Transaksi: ${kode}%0A%0ABukti transfer akan dikirim melalui WhatsApp atau email.%0A%0ATerima kasih.`;
+      window.open(`mailto:${email}?subject=${subject}&body=${body}`);
     }
-  </script>
-</body>
+  </script></body>
 </html>
