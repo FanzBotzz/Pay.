@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Payment Emix Store</title>
   <style>
     body {
-      background-image: url('https://qu.ax/iqJmg.jpg');
+      background-image: url('https://ibb.co.com/pBThcXrw');
       background-size: cover;
-      background-position: center;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       color: white;
       text-align: center;
       margin: 0;
       padding: 0;
     }
 
-    .marquee {
-      background: rgba(0, 0, 0, 0.8);
-      padding: 10px 0;
-      font-weight: bold;
-      color: #00ffcc;
-      font-size: 16px;
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 20px;
+      margin: 50px auto;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
     }
 
-    .container {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 30px;
-      border-radius: 15px;
-      margin: 30px auto;
-      width: 90%;
-      max-width: 400px;
+    h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
       animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .card {
       background: rgba(255, 255, 255, 0.1);
       margin: 15px 0;
-      padding: 15px;
-      border-radius: 10px;
+      padding: 20px;
+      border-radius: 12px;
     }
 
     button {
@@ -46,32 +49,64 @@
       color: white;
       border: none;
       padding: 10px 20px;
-      margin-top: 5px;
-      border-radius: 8px;
+      margin-top: 10px;
+      border-radius: 10px;
       cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #008ecc;
+    }
+
+    .marquee-container {
+      width: 100%;
+      overflow: hidden;
+      background-color: #000000dd;
+      padding: 12px 0;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    .marquee-text {
+      display: inline-block;
+      white-space: nowrap;
+      padding-left: 100%;
+      animation: marquee 12s linear infinite;
+      color: #00ffaa;
+      font-weight: bold;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
     }
 
     #success-message {
       display: none;
       margin-top: 15px;
-      color: #00ff99;
-      font-weight: bold;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    #success-message p {
+      margin: 5px 0;
+    }
+
+    .trx-id {
+      font-weight: bold;
+      color: #00ffaa;
     }
   </style>
 </head>
 <body>
 
-  <marquee class="marquee" behavior="scroll" direction="left">
-    Admin Emix juga melayani top up semua game. Ingin punya website seperti ini? Hubungi Emix sekarang!
-  </marquee>
+  <div class="marquee-container">
+    <div class="marquee-text">
+      Emix Store melayani pembayaran & top up game semua platform. Mau web seperti ini? Chat Emix sekarang!
+    </div>
+  </div>
 
   <div class="container">
-    <h1 style="font-weight: bold; animation: fadeIn 2s ease-in-out;">Payment Emix Store</h1>
+    <h1>Payment Emix Store</h1>
 
     <div class="card">
       <p>Scan QRIS di bawah ini untuk pembayaran:</p>
@@ -95,15 +130,16 @@
 
     <div class="card">
       <p>Setelah transfer, klik tombol di bawah untuk konfirmasi:</p>
-      <button onclick="sendConfirmation()">Saya sudah bayar</button>
+      <button onclick="showSuccess()">Saya sudah bayar</button>
       <div id="success-message">
-        <p>Pembayaran berhasil dikonfirmasi!</p>
+        <p style="color: #00ff99;">Pembayaran berhasil dikonfirmasi!</p>
+        <p>Kode Transaksi: <span class="trx-id" id="trx-id"></span></p>
         <p>Kami akan segera hubungi kamu via WhatsApp.</p>
       </div>
     </div>
 
     <div class="card">
-      <p>Atau langsung hubungi kami via WhatsApp:</p>
+      <p>Atau hubungi langsung kami via WhatsApp:</p>
       <a href="https://wa.me/62895391694499?text=Halo%20kak,%20saya%20sudah%20melakukan%20pembayaran" target="_blank">
         <button>Chat via WhatsApp</button>
       </a>
@@ -116,15 +152,13 @@
       alert("Nomor berhasil disalin!");
     }
 
-    function sendConfirmation() {
-      const kode = 'TRX-' + Math.floor(Math.random() * 1000000);
-      const pesan = encodeURIComponent(`Halo kak, saya sudah melakukan pembayaran.\nKode transaksi: ${kode}`);
-      const url = `https://wa.me/62895391694499?text=${pesan}`;
-      window.open(url, '_blank');
-
-      document.getElementById('success-message').style.display = 'block';
+    function showSuccess() {
+      const success = document.getElementById('success-message');
+      const trxId = document.getElementById('trx-id');
+      const kodeUnik = 'EMIX-' + Math.floor(100000 + Math.random() * 900000);
+      trxId.textContent = kodeUnik;
+      success.style.display = 'block';
     }
   </script>
-
 </body>
 </html>
