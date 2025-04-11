@@ -2,82 +2,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Transaksi Emix - Bayar Sekarang</title>
+  <title>Pembayaran Emix Store</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background: url('https://qu.ax/uvQWt.jpg') no-repeat center center fixed;
-      background-size: cover;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif;
       color: white;
-    }.container {
-  max-width: 500px;
-  margin: 60px auto;
-  padding: 30px;
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 20px;
-  text-align: center;
-}
-
-h1 {
-  margin-bottom: 10px;
-  font-size: 28px;
-}
-
-.price-tag {
-  font-size: 24px;
-  font-weight: bold;
-  color: #00ffaa;
-  margin-bottom: 20px;
-}
-
-button {
-  background-color: #00aaff;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 10px;
-  cursor: pointer;
-  margin: 10px 0;
-}
-
-button:hover {
-  background-color: #008ecc;
-}
-
-.note {
-  font-size: 13px;
-  margin-top: 10px;
-  color: #cccccc;
-}
-
-.highlight {
-  color: #ffc107;
-  font-weight: bold;
-}
-
+      background-image: url('https://qu.ax/uvQWt.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+    }
+    .container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 16px;
+      margin: 50px auto;
+      max-width: 400px;
+      text-align: center;
+    }
+    h1, h2 {
+      margin-bottom: 20px;
+    }
+    .product {
+      background-color: #222;
+      padding: 15px;
+      border-radius: 12px;
+      margin: 15px 0;
+    }
+    button, .qris-img {
+      margin-top: 10px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background-color: #00aaff;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn:active {
+      background-color: #008ecc;
+    }
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Pembayaran Produk</h1>
-    <div class="price-tag">Akun Premium - Rp20.000</div><p>Pilih metode pembayaran:</p>
+    <h1>Pembayaran Produk</h1><div class="product">
+  <h2>Murid Nokos - Rp5.000</h2>
+  <button class="btn" onclick="showQR('nokos')">Tampilkan QRIS</button>
+  <img id="qris-nokos" src="https://example.com/qris-nokos.jpg" class="qris-img hidden" width="100%">
+  <button class="btn hidden" id="done-nokos" onclick="confirmWA('Murid Nokos', 5000)">Saya sudah bayar</button>
+</div>
 
-<button onclick="window.location.href='https://orderkuota.com/qris/20k-tokenABC'">Bayar via QRIS</button>
-<br>
-<button onclick="window.location.href='https://orderkuota.com/dana/20k-tokenABC'">Bayar via DANA</button>
+<div class="product">
+  <h2>Murid PP Saluran - Rp10.000</h2>
+  <button class="btn" onclick="showQR('pp')">Tampilkan QRIS</button>
+  <img id="qris-pp" src="https://example.com/qris-pp.jpg" class="qris-img hidden" width="100%">
+  <button class="btn hidden" id="done-pp" onclick="confirmWA('Murid PP Saluran', 10000)">Saya sudah bayar</button>
+</div>
 
-<p class="note">Setelah transfer, kamu akan otomatis diarahkan ke WhatsApp untuk konfirmasi.</p>
+<div class="product">
+  <h2>Transaksi Bebas</h2>
+  <p>Gunakan link/token dari admin</p>
+  <button class="btn" onclick="location.href='https://wa.me/6289539164499?text=Halo%20saya%20ingin%20melakukan%20pembayaran%20bebas.'">Bayar Sekarang</button>
+</div>
 
   </div>  <script>
-    // Setelah user bayar dan halaman ini diakses dari OrderKuota, arahkan ke WA otomatis
-    window.onload = function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('status') === 'paid') {
-        window.location.href = 'https://wa.me/62895391694499?text=Halo%20admin,%20saya%20telah%20melakukan%20pembayaran%20Rp20.000%20untuk%20produk%20Akun%20Premium.%20Berikut%20bukti%20transfer%20saya%20(FOTO).';
-      }
+    function showQR(id) {
+      document.getElementById('qris-' + id).classList.remove('hidden');
+      document.getElementById('done-' + id).classList.remove('hidden');
+    }
+
+    function confirmWA(namaProduk, nominal) {
+      const pesan = `Halo Emix, saya sudah transfer untuk produk *${namaProduk}* sebesar *Rp${nominal.toLocaleString()}* mohon dicek ya. Berikut bukti transfernya:`;
+      window.location.href = `https://wa.me/6289539164499?text=${encodeURIComponent(pesan)}`;
     }
   </script></body>
 </html>
