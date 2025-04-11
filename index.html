@@ -2,77 +2,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pembayaran Otomatis</title>
+  <title>Pembayaran Emix</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      color: white;
       background: url('https://qu.ax/uvQWt.jpg') no-repeat center center fixed;
       background-size: cover;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      background: rgba(0, 0, 0, 0.6);
-      border-radius: 20px;
-      margin-top: 60px;
-    }
-    h1, h2 {
-      color: #FFD700;
-    }
-    .button {
-      background-color: #FFD700;
-      color: black;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 15px;
-    }
-    .button:hover {
-      background-color: #e6c200;
-    }
-    #qrisImage {
-      display: none;
-      margin-top: 20px;
-      max-width: 100%;
-      border: 2px solid white;
-      border-radius: 12px;
-    }
+      color: white;
+      text-shadow: 0 0 5px black;
+    }.container {
+  padding: 20px;
+  max-width: 700px;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  margin-top: 40px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1, h2 {
+  color: #FFD700;
+  margin-bottom: 10px;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #FFD700;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #ffc300;
+  transform: scale(1.05);
+}
+
+img.qris {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 0 10px black;
+  margin-bottom: 15px;
+  display: none;
+}
+
+.footer {
+  margin-top: 20px;
+  font-size: 0.9em;
+  text-align: center;
+  color: #ccc;
+}
+
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Pembayaran Produk</h1>
-    <p>Pilih salah satu produk di bawah ini dan lakukan pembayaran menggunakan QRIS:</p><ul>
-  <li><strong>Murid Nokos:</strong> Rp5.000</li>
-  <li><strong>Murid Paid Promote Saluran:</strong> Rp10.000</li>
-  <li><strong>Transaksi Lainnya:</strong> Akan diberikan token/link khusus</li>
-</ul>
+    <p>Pilih salah satu produk di bawah ini dan lakukan pembayaran menggunakan QRIS:</p>
+    <ul>
+      <li>Murid Nokos: Rp5.000</li>
+      <li>Murid Paid Promote Saluran: Rp10.000</li>
+      <li>Transaksi Lainnya: Akan diberikan token/link khusus</li>
+    </ul><button onclick="document.getElementById('qris').style.display='block'">Tampilkan QRIS</button>
+<img src="https://qu.ax/srsEc.png" id="qris" class="qris" alt="QRIS Pembayaran">
 
-<button class="button" onclick="showQRIS()">Tampilkan QRIS</button>
-<img id="qrisImage" src="https://i.ibb.co/rbFgqD3/QRIS-YORI-ORDERKUOTA.jpg" alt="QRIS">
+<button onclick="window.location.href='https://wa.me/62895391694499'">Saya Sudah Bayar</button>
 
-<button class="button" onclick="window.location.href='https://wa.me/62895391694499?text=Halo+admin%2C+saya+sudah+melakukan+pembayaran+dan+berikut+bukti+transfer+saya.'">Saya Sudah Bayar</button>
+<h2>Pembayaran Virtual</h2>
+<p>Pembayaran otomatis tersedia melalui aplikasi DANA:</p>
+<p><strong>Nomor DANA:</strong> <span id="dana">083137741581</span> <br><strong>Atas Nama:</strong> Yori Asanagi</p>
+<button onclick="salinNomor()">Salin Nomor DANA</button>
 
-<div style="margin-top: 40px;">
-  <h2>Pembayaran Virtual</h2>
-  <p>Pembayaran otomatis <strong>hanya tersedia melalui aplikasi DANA</strong>.</p>
-  <p>Setelah menekan tombol <strong>“Bayar Sekarang”</strong>, kamu akan langsung diarahkan ke aplikasi DANA untuk menyelesaikan pembayaran ke:</p>
-  <ul>
-    <li><strong>Nomor DANA:</strong> 083137741581</li>
-    <li><strong>Atas Nama:</strong> Yori Asanagi</li>
-  </ul>
-  <p>Jika sudah melakukan pembayaran, tekan tombol <strong>“Saya Sudah Bayar”</strong> dan kamu akan diarahkan ke WhatsApp kami untuk verifikasi ulang dan mengirim bukti transfer.</p>
-</div>
+<div class="footer">Pembayaran via OVO dikenakan biaya tambahan Rp1.000</div>
 
   </div>  <script>
-    function showQRIS() {
-      document.getElementById('qrisImage').style.display = 'block';
+    function salinNomor() {
+      const nomor = document.getElementById("dana").innerText;
+      navigator.clipboard.writeText(nomor);
+      alert("Nomor DANA berhasil disalin!");
     }
   </script></body>
 </html>
