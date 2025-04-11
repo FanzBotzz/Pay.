@@ -1,39 +1,177 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emix Store - Pembayaran</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pembayaran Emix Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://qu.ax/GzsEe.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 15px;
+      margin: 50px auto;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .judul {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    #typing {
+      border-right: 2px solid white;
+      padding-right: 5px;
+      animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink {
+      0% { border-color: white; }
+      50% { border-color: transparent; }
+      100% { border-color: white; }
+    }
+
+    .qris-section p {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .qris-img {
+      width: 100%;
+      max-width: 250px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      margin: 15px 0;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    button {
+      background-color: #00aaff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0077cc;
+    }
+
+    .note {
+      color: #ffd700;
+      font-weight: 500;
+      font-size: 14px;
+      margin: 5px 0;
+    }
+
+    .payment-box {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+    }
+
+    .payment-box p {
+      margin: 5px 0;
+    }
+
+    .payment-box button {
+      background-color: #00aaff;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      margin-top: 5px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .payment-box button:hover {
+      background-color: #008fcc;
+    }
+
+    /* Teks Berjalan */
+    .marquee-wrapper {
+      overflow: hidden;
+      white-space: nowrap;
+      background: #111;
+      padding: 10px;
+    }
+
+    .marquee-text {
+      display: inline-block;
+      animation: slideText 15s linear infinite;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      color: white;
+    }
+
+    @keyframes slideText {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+  </style>
 </head>
 <body>
 
   <!-- Teks Berjalan Promosi -->
-  <div class="marquee-container">
+  <div class="marquee-wrapper">
     <div class="marquee-text">
       Emix Store juga menyediakan layanan top up game dan aplikasi premium. Mau buat website seperti ini? Hubungi admin lewat WhatsApp yang tertera di web!
     </div>
   </div>
 
-  <!-- Kontainer Utama -->
+  <!-- Konten -->
   <div class="container">
     <div class="judul">Pembayaran Emix Store</div>
-    <div id="typing">Silakan lakukan pembayaran</div>
+    <p>Silakan lakukan pembayaran</p>
+    <p>Scan QRIS di bawah ini:</p>
+    <p class="note">*Transfer dari OVO dikenakan biaya tambahan Rp1.000</p>
+    <p class="note">Nomor DANA: 0895-3916-94499 (a.n. Yori Asanagi)</p>
+    
+    <img src="https://qu.ax/srsEc.png" alt="QRIS Emix Store" class="qris-img" />
 
-    <div class="qris-section">
-      <p>Scan QRIS di bawah ini:</p>
-      <img src="https://qu.ax/srsEc.png" alt="QRIS Emix Store" class="qris-img">
-    </div>
-
-    <div class="note">Transfer ke DANA a.n. Yori Asanagi</div>
+    <p class="note">Transfer ke DANA a.n. Yori Asanagi</p>
 
     <div class="payment-box">
-      <p>Total Transfer:</p>
-      <input type="number" placeholder="Masukkan nominal..." style="padding: 8px; width: 80%; border-radius: 6px; border: none; margin-bottom: 10px;">
-      <p>Upload Bukti Transfer:</p>
-      <input type="file" accept="image/*" style="margin-bottom: 10px;">
-      <button onclick="window.location.href='https://wa.me/62895391694499?text=Halo kak, saya sudah transfer. Ini bukti pembayarannya.'">Saya Sudah Bayar</button>
+      <p><strong>Total Transfer:</strong></p>
+      <input type="text" placeholder="Masukkan nominal..." style="padding: 8px; width: 90%; border-radius: 6px; border: none; margin-bottom: 10px;" />
+
+      <p><strong>Upload Bukti Transfer:</strong></p>
+      <input type="file" />
+      <br />
+      <a href="https://wa.me/62895391694499?text=Halo%20admin,%20saya%20sudah%20melakukan%20pembayaran%20via%20QRIS%20Emix%20Store." target="_blank">
+        <button>Saya Sudah Bayar</button>
+      </a>
     </div>
   </div>
 
