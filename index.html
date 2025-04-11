@@ -1,8 +1,8 @@
 <!DOCTYPE html><html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pembayaran Emix</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pembayaran Otomatis Emix</title>
   <style>
     body {
       margin: 0;
@@ -10,90 +10,118 @@
       background: url('https://qu.ax/uvQWt.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
-      text-shadow: 0 0 5px black;
-    }.container {
-  padding: 20px;
-  max-width: 700px;
-  margin: auto;
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 20px;
-  margin-top: 40px;
-  animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-h1, h2 {
-  color: #FFD700;
-  margin-bottom: 10px;
-}
-
-ul {
-  padding-left: 20px;
-}
-
-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 12px;
-  background: #FFD700;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  margin: 10px 0;
-  transition: all 0.3s ease;
-}
-
-button:hover {
-  background: #ffc300;
-  transform: scale(1.05);
-}
-
-img.qris {
-  width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 0 10px black;
-  margin-bottom: 15px;
-  display: none;
-}
-
-.footer {
-  margin-top: 20px;
-  font-size: 0.9em;
-  text-align: center;
-  color: #ccc;
-}
-
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: 2rem;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px)}
+      to {opacity: 1; transform: translateY(0)}
+    }
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      margin: 10px auto;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: block;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #qrisImg {
+      display: none;
+      margin: 20px auto;
+      max-width: 100%;
+      border-radius: 15px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+    }
+    .notice {
+      font-size: 14px;
+      margin-top: 1rem;
+      color: #ccc;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Pembayaran Produk</h1>
-    <p>Pilih salah satu produk di bawah ini dan lakukan pembayaran menggunakan QRIS:</p>
+    <h1>Emix Payment</h1>
+    <h2>Pilih Produk:</h2>
     <ul>
-      <li>Murid Nokos: Rp5.000</li>
-      <li>Murid Paid Promote Saluran: Rp10.000</li>
-      <li>Transaksi Lainnya: Akan diberikan token/link khusus</li>
-    </ul><button onclick="document.getElementById('qris').style.display='block'">Tampilkan QRIS</button>
-<img src="https://qu.ax/srsEc.png" id="qris" class="qris" alt="QRIS Pembayaran">
+      <li>Murid Nokos - Rp5.000</li>
+      <li>Murid Paid Promote Saluran - Rp10.000</li>
+    </ul><button onclick="showQRIS()">Tampilkan QRIS</button>
+<img id="qrisImg" src="https://qu.ax/srsEc.png" alt="QRIS Pembayaran" />
 
-<button onclick="window.location.href='https://wa.me/62895391694499'">Saya Sudah Bayar</button>
+<form id="paymentForm">
+  <input type="text" id="name" name="name" placeholder="Nama Anda" required />
+  <input type="number" id="amount" name="amount" placeholder="Total Transfer (contoh: 10000)" required />
+  <input type="file" id="proof" name="proof" accept="image/*" required />
+  <button type="submit">Saya Sudah Bayar</button>
+</form>
 
-<h2>Pembayaran Virtual</h2>
-<p>Pembayaran otomatis tersedia melalui aplikasi DANA:</p>
-<p><strong>Nomor DANA:</strong> <span id="dana">083137741581</span> <br><strong>Atas Nama:</strong> Yori Asanagi</p>
-<button onclick="salinNomor()">Salin Nomor DANA</button>
+<button onclick="copyDanaNumber()">Salin Nomor DANA</button>
+<p class="notice">Pembayaran hanya melalui QRIS ke DANA a.n <strong>Yori Asanagi</strong> (083137741581). Jika menggunakan OVO akan dikenakan biaya tambahan Rp1.000.</p>
 
-<div class="footer">Pembayaran via OVO dikenakan biaya tambahan Rp1.000</div>
+<div class="notice">Setelah submit, Anda akan diarahkan ke WhatsApp <br>untuk mengirim ulang bukti transfer.</div>
 
-  </div>  <script>
-    function salinNomor() {
-      const nomor = document.getElementById("dana").innerText;
-      navigator.clipboard.writeText(nomor);
-      alert("Nomor DANA berhasil disalin!");
+  </div>  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>  <script>
+    emailjs.init("QtCkBP_ZmW9Jij-Pa");
+
+    function showQRIS() {
+      document.getElementById("qrisImg").style.display = "block";
     }
+
+    function copyDanaNumber() {
+      navigator.clipboard.writeText("083137741581");
+      alert("Nomor DANA disalin: 083137741581");
+    }
+
+    document.getElementById("paymentForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const amount = document.getElementById("amount").value;
+      const file = document.getElementById("proof").files[0];
+
+      if (!file) return alert("Upload bukti transfer dulu ya!");
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        const base64 = reader.result;
+
+        emailjs.send("service_wvsf2wp", "template_p2puwue", {
+          name,
+          amount,
+          screenshot: base64
+        }).then(() => {
+          window.location.href = "https://wa.me/62895391694499?text=Halo%20Admin,%20saya%20sudah%20melakukan%20pembayaran%20sebesar%20Rp" + amount + "%20berikut%20adalah%20bukti%20transfer%20saya.";
+        });
+      }
+      reader.readAsDataURL(file);
+    });
   </script></body>
 </html>
