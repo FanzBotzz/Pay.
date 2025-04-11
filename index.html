@@ -1,191 +1,304 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Payment Emix Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pembayaran Otomatis</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Arial', sans-serif;
-      color: white;
+      font-family: 'Segoe UI', sans-serif;
       background: url('https://qu.ax/uvQWt.jpg') no-repeat center center fixed;
       background-size: cover;
-    }
+      color: #fff;
+    }.container {
+  max-width: 500px;
+  margin: 60px auto;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
 
-    .marquee-container {
-      width: 100%;
-      overflow: hidden;
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 10px 0;
-    }
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
 
-    .marquee-text {
-      display: inline-block;
-      white-space: nowrap;
-      padding-left: 100%;
-      animation: marquee 15s linear infinite;
-      color: #00ffaa;
-      font-weight: bold;
-    }
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
 
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: none;
+}
 
-    .container {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 30px;
-      border-radius: 15px;
-      margin: 50px auto;
-      width: 95%;
-      max-width: 400px;
-      box-shadow: 0 0 20px #00ffaa55;
-    }
+button {
+  width: 100%;
+  margin-top: 25px;
+  padding: 12px;
+  background-color: #00aaff;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+}
 
-    .card {
-      background: rgba(255, 255, 255, 0.08);
-      margin: 15px 0;
-      padding: 15px;
-      border-radius: 10px;
-    }
+.qris {
+  margin-top: 20px;
+  text-align: center;
+}
 
-    button {
-      background-color: #00aaff;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      margin-top: 5px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+.qris img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+}
 
-    .blinking {
-      animation: blink 2s infinite;
-      font-size: 1.5rem;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border-radius: 8px;
-      border: none;
-    }
-
-    label {
-      text-align: left;
-      display: block;
-      margin-top: 10px;
-    }
-
-    #success-message {
-      margin-top: 15px;
-      color: #00ff99;
-      font-weight: bold;
-    }
   </style>
 </head>
 <body>
-  <div class="marquee-container">
-    <div class="marquee-text">
-      Admin Emix melayani top up semua game. Mau punya website seperti ini? Hubungi Emix sekarang!
-    </div>
-  </div>
-
   <div class="container">
-    <h1 class="blinking">Payment Emix Store</h1>
+    <h2>Pembayaran untuk Transaksi #TRX10234</h2>
+    <div class="qris">
+      <p>Silakan scan QRIS di bawah ini untuk melakukan pembayaran:</p>
+      <img src="https://qu.ax/srsEc.png" alt="QRIS Payment">
+    </div><form id="paymentForm">
+  <label>Nama Kamu:</label>
+  <input type="text" id="name" required>
 
-    <div class="card">
-      <p>Scan QRIS di bawah ini untuk pembayaran:</p>
-      <img src="https://qu.ax/srsEc.png" alt="QRIS" style="width: 100%; border-radius: 10px;">
-    </div>
+  <label>Total Transfer (Rp):</label>
+  <input type="number" id="amount" required>
 
-    <div class="card">
-      <p><b>Dana / OVO / Gopay:</b> 083137741581</p>
-      <button onclick="copyToClipboard('083137741581')">Salin</button>
-    </div>
+  <label>Catatan (opsional):</label>
+  <textarea id="note" rows="3"></textarea>
 
-    <div class="card">
-      <form id="paymentForm" action="https://formspree.io/f/xkgjkpqw" method="POST" onsubmit="return handleSubmit(event)">
-        <label for="nama">Nama:</label>
-        <input type="text" name="Nama" id="nama" required />
+  <button type="submit">Saya Sudah Bayar</button>
+</form>
 
-        <label for="total">Total Transfer:</label>
-        <input type="text" name="Total Transfer" id="total" required />
+  </div>  <script>
+    document.getElementById('paymentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
 
-        <input type="hidden" name="Kode Transaksi" id="kode" />
+      const name = document.getElementById('name').value;
+      const amount = document.getElementById('amount').value;
+      const note = document.getElementById('note').value;
 
-        <button type="submit">Saya sudah bayar</button>
-      </form>
-      <div id="success-message"></div>
-    </div>
+      const pesan = `Halo Admin, saya sudah transfer.
+Nama: ${name}
+Total: Rp${amount}
+Catatan: ${note}`;
 
-    <div class="card">
-      <p>Atau langsung hubungi kami via WhatsApp:</p>
-      <a id="waLink" href="#" target="_blank">
-        <button>Chat via WhatsApp</button>
-      </a>
-    </div>
-  </div>
+      const urlWA = `https://wa.me/62895391694499?text=${encodeURIComponent(pesan)}`;
+      window.location.href = urlWA;
+    });
+  </script></body>
+</html><!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pembayaran Otomatis</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://qu.ax/uvQWt.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }.container {
+  max-width: 500px;
+  margin: 60px auto;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
 
-  <script>
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text);
-      alert("Nomor berhasil disalin!");
-    }
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
 
-    function generateTransactionCode() {
-      const prefix = "EMX";
-      const now = Date.now().toString();
-      const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-      return `${prefix}-${now}-${random}`;
-    }
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
 
-    function handleSubmit(event) {
-      event.preventDefault();
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: none;
+}
 
-      const nama = document.getElementById("nama").value;
-      const total = document.getElementById("total").value;
-      const kode = generateTransactionCode();
+button {
+  width: 100%;
+  margin-top: 25px;
+  padding: 12px;
+  background-color: #00aaff;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+}
 
-      document.getElementById("kode").value = kode;
+.qris {
+  margin-top: 20px;
+  text-align: center;
+}
 
-      // Kirim ke Formspree
-      const form = document.getElementById("paymentForm");
-      const formData = new FormData(form);
+.qris img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+}
 
-      fetch(form.action, {
-        method: "POST",
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          document.getElementById("success-message").innerText = `Kode Transaksi: ${kode}`;
-          // Redirect ke WhatsApp
-          const waURL = `https://wa.me/62895391694499?text=Halo kak Emix, saya sudah melakukan pembayaran dengan kode transaksi ${kode}. Berikut bukti transfer saya:`;
-          document.getElementById("waLink").href = waURL;
-          document.getElementById("waLink").click();
-        } else {
-          alert("Gagal mengirim. Silakan coba lagi.");
-        }
-      })
-      .catch(error => {
-        alert("Terjadi kesalahan.");
-      });
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Pembayaran untuk Transaksi #TRX10234</h2>
+    <div class="qris">
+      <p>Silakan scan QRIS di bawah ini untuk melakukan pembayaran:</p>
+      <img src="https://qu.ax/srsEc.png" alt="QRIS Payment">
+    </div><form id="paymentForm">
+  <label>Nama Kamu:</label>
+  <input type="text" id="name" required>
 
-      return false;
-    }
-  </script>
-</body>
-</html>
+  <label>Total Transfer (Rp):</label>
+  <input type="number" id="amount" required>
+
+  <label>Catatan (opsional):</label>
+  <textarea id="note" rows="3"></textarea>
+
+  <button type="submit">Saya Sudah Bayar</button>
+</form>
+
+  </div>  <script>
+    document.getElementById('paymentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const amount = document.getElementById('amount').value;
+      const note = document.getElementById('note').value;
+
+      const pesan = `Halo Admin, saya sudah transfer<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pembayaran Otomatis</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://qu.ax/uvQWt.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }.container {
+  max-width: 500px;
+  margin: 60px auto;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: none;
+}
+
+button {
+  width: 100%;
+  margin-top: 25px;
+  padding: 12px;
+  background-color: #00aaff;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.qris {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.qris img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Pembayaran untuk Transaksi #TRX10234</h2>
+    <div class="qris">
+      <p>Silakan scan QRIS di bawah ini untuk melakukan pembayaran:</p>
+      <img src="https://qu.ax/srsEc.png" alt="QRIS Payment">
+    </div><form id="paymentForm">
+  <label>Nama Kamu:</label>
+  <input type="text" id="name" required>
+
+  <label>Total Transfer (Rp):</label>
+  <input type="number" id="amount" required>
+
+  <label>Catatan (opsional):</label>
+  <textarea id="note" rows="3"></textarea>
+
+  <button type="submit">Saya Sudah Bayar</button>
+</form>
+
+  </div>  <script>
+    document.getElementById('paymentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const amount = document.getElementById('amount').value;
+      const note = document.getElementById('note').value;
+
+      const pesan = `Halo Admin, saya sudah transfer.
+Nama: ${name}
+Total: Rp${amount}
+Catatan: ${note}`;
+
+      const urlWA = `https://wa.me/62895391694499?text=${encodeURIComponent(pesan)}`;
+      window.location.href = urlWA;
+    });
+  </script></body>
+</html>.
+Nama: ${name}
+Total: Rp${amount}
+Catatan: ${note}`;
+
+      const urlWA = `https://wa.me/62895391694499?text=${encodeURIComponent(pesan)}`;
+      window.location.href = urlWA;
+    });
+  </script></body>
+  </html>
