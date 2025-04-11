@@ -1,102 +1,83 @@
 <!DOCTYPE html><html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pembayaran Otomatis</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transaksi Emix - Bayar Sekarang</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      padding: 0;
       background: url('https://qu.ax/uvQWt.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
     }.container {
   max-width: 500px;
   margin: 60px auto;
-  background-color: rgba(0, 0, 0, 0.75);
-  border-radius: 16px;
   padding: 30px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
-}
-
-h2 {
-  margin-bottom: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 20px;
   text-align: center;
 }
 
-label {
-  display: block;
-  margin-top: 15px;
-  font-weight: bold;
+h1 {
+  margin-bottom: 10px;
+  font-size: 28px;
 }
 
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 8px;
-  border: none;
+.price-tag {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00ffaa;
+  margin-bottom: 20px;
 }
 
 button {
-  width: 100%;
-  margin-top: 25px;
-  padding: 12px;
   background-color: #00aaff;
-  border: none;
   color: white;
-  font-weight: bold;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
   border-radius: 10px;
   cursor: pointer;
+  margin: 10px 0;
 }
 
-.qris {
-  margin-top: 20px;
-  text-align: center;
+button:hover {
+  background-color: #008ecc;
 }
 
-.qris img {
-  width: 100%;
-  max-width: 300px;
-  border-radius: 10px;
+.note {
+  font-size: 13px;
+  margin-top: 10px;
+  color: #cccccc;
+}
+
+.highlight {
+  color: #ffc107;
+  font-weight: bold;
 }
 
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Pembayaran untuk Transaksi #TRX10234</h2>
-    <div class="qris">
-      <p>Silakan scan QRIS di bawah ini untuk melakukan pembayaran:</p>
-      <img src="https://qu.ax/srsEc.png" alt="QRIS Payment">
-    </div><form id="paymentForm">
-  <label>Nama Kamu:</label>
-  <input type="text" id="name" required>
+    <h1>Pembayaran Produk</h1>
+    <div class="price-tag">Akun Premium - Rp20.000</div><p>Pilih metode pembayaran:</p>
 
-  <label>Total Transfer (Rp):</label>
-  <input type="number" id="amount" required>
+<button onclick="window.location.href='https://orderkuota.com/qris/20k-tokenABC'">Bayar via QRIS</button>
+<br>
+<button onclick="window.location.href='https://orderkuota.com/dana/20k-tokenABC'">Bayar via DANA</button>
 
-  <label>Catatan (opsional):</label>
-  <textarea id="note" rows="3"></textarea>
-
-  <button type="submit">Saya Sudah Bayar</button>
-</form>
+<p class="note">Setelah transfer, kamu akan otomatis diarahkan ke WhatsApp untuk konfirmasi.</p>
 
   </div>  <script>
-    document.getElementById('paymentForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const name = document.getElementById('name').value;
-      const amount = document.getElementById('amount').value;
-      const note = document.getElementById('note').value;
-
-      const pesan = `Halo Admin, saya sudah transfer.
-Nama: ${name}
-Total: Rp${amount}
-Catatan: ${note}`;
-
-      const urlWA = `https://wa.me/62895391694499?text=${encodeURIComponent(pesan)}`;
-      window.location.href = urlWA;
-    });
+    // Setelah user bayar dan halaman ini diakses dari OrderKuota, arahkan ke WA otomatis
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('status') === 'paid') {
+        window.location.href = 'https://wa.me/62895391694499?text=Halo%20admin,%20saya%20telah%20melakukan%20pembayaran%20Rp20.000%20untuk%20produk%20Akun%20Premium.%20Berikut%20bukti%20transfer%20saya%20(FOTO).';
+      }
+    }
   </script></body>
 </html>
