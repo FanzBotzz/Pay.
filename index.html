@@ -1,81 +1,174 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Emix Payment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pembayaran Emix Store</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
   <style>
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: url('https://qu.ax/uvQWt.jpg') no-repeat center center fixed;
+      background-image: url('https://qu.ax/iqJmg.jpg');
       background-size: cover;
+      background-position: center;
+      font-family: 'Poppins', sans-serif;
       color: white;
-      overflow-x: hidden;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      padding: 40px 20px;
-      background: rgba(0, 0, 0, 0.6);
-      border-radius: 20px;
-      margin-top: 60px;
-      animation: fadeIn 1s ease-in-out;
-    }
-    h1 {
       text-align: center;
-      font-weight: 600;
-      font-size: 32px;
+      margin: 0;
+      padding: 0;
+      animation: fadeIn 1s ease-in;
     }
-    p {
-      text-align: center;
-      font-size: 16px;
-    }
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 15px;
-      font-size: 16px;
-      margin: 20px 0;
-      border: none;
-      border-radius: 12px;
-      background: #00c853;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .btn:hover {
-      background: #009624;
-    }
-    .qris {
-      display: none;
-      text-align: center;
-    }
-    .qris img {
-      width: 100%;
-      max-width: 300px;
-      margin: 20px auto;
-    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 15px;
+      margin: 50px auto;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .judul {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    #typing {
+      border-right: 2px solid white;
+      padding-right: 5px;
+      animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink {
+      0% { border-color: white; }
+      50% { border-color: transparent; }
+      100% { border-color: white; }
+    }
+
+    .qris-section p {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .qris-img {
+      width: 100%;
+      max-width: 250px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      margin: 15px 0;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    button {
+      background-color: #00aaff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0077cc;
+    }
+
+    .note {
+      color: #ff4d4d;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .payment-box {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+    }
+
+    .payment-box p {
+      margin: 5px 0;
+    }
+
+    .payment-box button {
+      background-color: #00aaff;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      margin-top: 5px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .payment-box button:hover {
+      background-color: #008fcc;
+    }
+
+    /* Teks berjalan */
+    .marquee-container {
+      overflow: hidden;
+      white-space: nowrap;
+      background: rgba(0,0,0,0.8);
+      padding: 10px 0;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .marquee-text {
+      display: inline-block;
+      animation: slideText 20s linear infinite;
+    }
+
+    @keyframes slideText {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
   </style>
 </head>
 <body>
+
+  <div class="marquee-container">
+    <div class="marquee-text">
+      Emix Store juga menyediakan layanan top up game & aplikasi premium. Mau buat website seperti ini? Hubungi admin lewat WhatsApp yang tertera di web!
+    </div>
+  </div>
+
   <div class="container">
-    <h1>Pembayaran Emix Store</h1>
-    <p>Pilih produk dan lakukan pembayaran dengan QRIS otomatis. Khusus virtual payment hanya melalui <strong>DANA</strong>.</p>
-    <p>Atas nama: <strong>Yori Asanagi</strong></p>
-    <button class="btn" onclick="copyDana()">Salin Nomor DANA (083137741581)</button><button class="btn" onclick="toggleQRIS()">Tampilkan QRIS</button>
-<div class="qris" id="qris">
-  <img src="https://qu.ax/srsEc.png" alt="QRIS Emix" />
-</div>
+    <div class="judul">Pembayaran Emix Store</div>
+    
+    <div class="card">
+      <p>Nomor DANA: <strong>083137741581</strong></p>
+      <button onclick="copyDana()">Salin Nomor DANA</button>
+    </div>
 
-<button class="btn" onclick="confirmPayment()">Saya sudah bayar</button>
-<p style="font-size: 12px; text-align:center">Pembayaran melalui OVO akan dikenakan biaya tambahan Rp1.000</p>
+    <div class="card">
+      <p>Atas Nama: <strong>Yori Asanagi</strong></p>
+      <button onclick="toggleQRIS()">Tampilkan QRIS</button>
+      <div id="qris" style="display: none; margin-top: 15px;">
+        <img src="https://qu.ax/srsEc.png" alt="QRIS Emix" class="qris-img">
+      </div>
+    </div>
 
-  </div>  <script>
+    <div class="card">
+      <button onclick="confirmPayment()">Saya sudah bayar</button>
+      <p class="note">Pembayaran melalui OVO dikenakan biaya tambahan Rp1.000</p>
+    </div>
+  </div>
+
+  <script>
     function toggleQRIS() {
       const qris = document.getElementById('qris');
       qris.style.display = qris.style.display === 'block' ? 'none' : 'block';
@@ -83,13 +176,15 @@
 
     function copyDana() {
       navigator.clipboard.writeText('083137741581').then(() => {
-        alert('Nomor DANA disalin ke clipboard');
+        alert('Nomor DANA disalin ke clipboard!');
       });
     }
 
     function confirmPayment() {
-      const message = encodeURIComponent("Halo Admin, saya sudah melakukan pembayaran. Berikut bukti transfer saya: [silakan upload screenshot bukti transfer]");
-      window.location.href = `https://wa.me/62895391694499?text=${message}`;
+      const msg = encodeURIComponent("Halo Admin, saya sudah melakukan pembayaran. Berikut bukti transfer saya: [upload bukti transfer]");
+      window.location.href = `https://wa.me/62895391694499?text=${msg}`;
     }
-  </script></body>
+  </script>
+
+</body>
 </html>
