@@ -2,126 +2,140 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pembayaran Otomatis Emix</title>
+  <title>Pembayaran Emix</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: url('https://qu.ax/uvQWt.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      overflow-x: hidden;
     }
     .container {
-      max-width: 600px;
-      margin: 2rem;
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.6);
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 500px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
       animation: fadeIn 1s ease;
     }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px)}
-      to {opacity: 1; transform: translateY(0)}
-    }
-    h1, h2 {
+    h1 {
       text-align: center;
-      margin-bottom: 1rem;
+      font-size: 28px;
     }
-    button {
-      background-color: #4caf50;
-      color: white;
+    .product {
+      margin: 20px 0;
+      padding: 15px;
+      background: #1a1a1a;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: slideUp 1s ease;
+    }
+    .product span {
+      font-size: 18px;
+    }
+    button, .btn {
+      padding: 10px 15px;
       border: none;
-      padding: 12px 20px;
-      margin: 10px auto;
+      background: #4CAF50;
+      color: white;
       border-radius: 10px;
       cursor: pointer;
-      font-size: 1rem;
-      display: block;
+      font-size: 14px;
       transition: background 0.3s;
     }
-    button:hover {
-      background-color: #45a049;
+    button:hover, .btn:hover {
+      background: #45a049;
     }
-    #qrisImg {
+    #qris-img {
       display: none;
-      margin: 20px auto;
-      max-width: 100%;
-      border-radius: 15px;
+      text-align: center;
+      margin-top: 20px;
     }
-    input, textarea {
+    #qris-img img {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: none;
+      border-radius: 10px;
     }
-    .notice {
-      font-size: 14px;
-      margin-top: 1rem;
-      color: #ccc;
+    .salin {
+      background: #2196F3;
+      margin-left: 10px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Emix Payment</h1>
-    <h2>Pilih Produk:</h2>
-    <ul>
-      <li>Murid Nokos - Rp5.000</li>
-      <li>Murid Paid Promote Saluran - Rp10.000</li>
-    </ul><button onclick="showQRIS()">Tampilkan QRIS</button>
-<img id="qrisImg" src="https://qu.ax/srsEc.png" alt="QRIS Pembayaran" />
+    <h1>Pembayaran Otomatis</h1><div class="product">
+  <span>Murid Nokos</span>
+  <span>Rp5.000</span>
+</div>
+<div class="product">
+  <span>Murid Paid Promote</span>
+  <span>Rp10.000</span>
+</div>
 
-<form id="paymentForm">
-  <input type="text" id="name" name="name" placeholder="Nama Anda" required />
-  <input type="number" id="amount" name="amount" placeholder="Total Transfer (contoh: 10000)" required />
-  <input type="file" id="proof" name="proof" accept="image/*" required />
-  <button type="submit">Saya Sudah Bayar</button>
+<button onclick="showQRIS()">Tampilkan QRIS</button>
+<div id="qris-img">
+  <img src="https://qu.ax/srsEc.png" alt="QRIS Pembayaran" />
+</div>
+
+<form id="payment-form" style="margin-top: 20px">
+  <label>Nama:</label>
+  <input type="text" name="name" required style="width:100%;margin-bottom:10px;padding:8px;border-radius:6px;border:none" />
+  <label>Total Transfer:</label>
+  <input type="text" name="amount" required style="width:100%;margin-bottom:10px;padding:8px;border-radius:6px;border:none" />
+  <label>Bukti Transfer (Screenshot):</label>
+  <input type="file" name="image" accept="image/*" required style="width:100%;margin-bottom:10px" />
+  <button type="submit">Saya sudah bayar</button>
 </form>
 
-<button onclick="copyDanaNumber()">Salin Nomor DANA</button>
-<p class="notice">Pembayaran hanya melalui QRIS ke DANA a.n <strong>Yori Asanagi</strong> (083137741581). Jika menggunakan OVO akan dikenakan biaya tambahan Rp1.000.</p>
+<p style="margin-top: 20px">Atau hubungi via WhatsApp:</p>
+<a href="https://wa.me/62895391694499?text=Halo%20saya%20sudah%20melakukan%20pembayaran.%20Berikut%20bukti%20transfer%20saya." target="_blank">
+  <button class="btn">Chat WhatsApp</button>
+</a>
 
-<div class="notice">Setelah submit, Anda akan diarahkan ke WhatsApp <br>untuk mengirim ulang bukti transfer.</div>
+<p style="margin-top: 20px">Atau transfer manual ke DANA:</p>
+<div style="display: flex; align-items: center">
+  <span>083137741581 a.n. Yori Asanagi</span>
+  <button class="salin" onclick="copyDana()">Salin</button>
+</div>
+<small>Transfer via OVO akan dikenakan biaya Rp1.000</small>
 
-  </div>  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>  <script>
+  </div>  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>  <script>
     emailjs.init("QtCkBP_ZmW9Jij-Pa");
 
-    function showQRIS() {
-      document.getElementById("qrisImg").style.display = "block";
-    }
-
-    function copyDanaNumber() {
-      navigator.clipboard.writeText("083137741581");
-      alert("Nomor DANA disalin: 083137741581");
-    }
-
-    document.getElementById("paymentForm").addEventListener("submit", function (e) {
+    const form = document.getElementById("payment-form");
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const name = document.getElementById("name").value;
-      const amount = document.getElementById("amount").value;
-      const file = document.getElementById("proof").files[0];
-
-      if (!file) return alert("Upload bukti transfer dulu ya!");
-
-      const reader = new FileReader();
-      reader.onload = function () {
-        const base64 = reader.result;
-
-        emailjs.send("service_wvsf2wp", "template_p2puwue", {
-          name,
-          amount,
-          screenshot: base64
-        }).then(() => {
-          window.location.href = "https://wa.me/62895391694499?text=Halo%20Admin,%20saya%20sudah%20melakukan%20pembayaran%20sebesar%20Rp" + amount + "%20berikut%20adalah%20bukti%20transfer%20saya.";
-        });
-      }
-      reader.readAsDataURL(file);
+      emailjs.sendForm("service_wvsf2wp", "template_p2puwue", form).then(
+        function () {
+          window.location.href = "https://wa.me/62895391694499?text=Halo%2C%20saya%20sudah%20melakukan%20pembayaran.%20Berikut%20bukti%20transfer%20saya.";
+        },
+        function (error) {
+          alert("Gagal mengirim data. Coba lagi.");
+        }
+      );
     });
+
+    function showQRIS() {
+      document.getElementById("qris-img").style.display = "block";
+    }
+
+    function copyDana() {
+      navigator.clipboard.writeText("083137741581");
+      alert("Nomor DANA disalin!");
+    }
   </script></body>
 </html>
