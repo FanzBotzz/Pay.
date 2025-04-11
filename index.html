@@ -3,7 +3,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Emix Payment</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -11,94 +11,85 @@
       background: url('https://qu.ax/uvQWt.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
+      overflow-x: hidden;
     }
     .container {
-      background: rgba(0, 0, 0, 0.7);
-      max-width: 500px;
-      margin: 50px auto;
-      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.6);
       border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      animation: fadeIn 1s ease;
+      margin-top: 60px;
+      animation: fadeIn 1s ease-in-out;
     }
     h1 {
-      font-size: 28px;
       text-align: center;
-      margin-bottom: 20px;
+      font-weight: 600;
+      font-size: 32px;
     }
-    .qris {
-      display: flex;
-      justify-content: center;
+    p {
+      text-align: center;
+      font-size: 16px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
       margin: 20px 0;
-    }
-    .qris img {
-      max-width: 100%;
-      border-radius: 10px;
-    }
-    button, .copy-btn {
-      background-color: #00b894;
-      color: white;
-      padding: 12px 20px;
       border: none;
       border-radius: 12px;
-      font-weight: 600;
+      background: #00c853;
+      color: white;
       cursor: pointer;
-      margin: 10px 0;
-      transition: background 0.3s;
+      transition: background 0.3s ease;
     }
-    button:hover, .copy-btn:hover {
-      background-color: #019874;
+    .btn:hover {
+      background: #009624;
     }
-    .wa-section, .manual-section {
-      margin-top: 20px;
+    .qris {
+      display: none;
+      text-align: center;
     }
-    .copy-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .qris img {
+      width: 100%;
+      max-width: 300px;
+      margin: 20px auto;
     }
     @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Konfirmasi Pembayaran</h1>
-    <div class="qris">
-      <img src="https://qu.ax/srsEc.png" alt="QRIS Pembayaran" />
-    </div><button onclick="redirectWA()">Saya sudah bayar</button>
-
-<div class="wa-section">
-  <p>Atau hubungi via WhatsApp:</p>
-  <button onclick="chatWhatsApp()">Chat WhatsApp</button>
+    <h1>Pembayaran Emix Store</h1>
+    <p>Pilih produk dan lakukan pembayaran dengan QRIS otomatis. Khusus virtual payment hanya melalui <strong>DANA</strong>.</p>
+    <p>Atas nama: <strong>Yori Asanagi</strong></p>
+    <button class="btn" onclick="copyDana()">Salin Nomor DANA (083137741581)</button><button class="btn" onclick="toggleQRIS()">Tampilkan QRIS</button>
+<div class="qris" id="qris">
+  <img src="https://qu.ax/srsEc.png" alt="QRIS Emix" />
 </div>
 
-<div class="manual-section">
-  <p>Atau transfer manual ke DANA:</p>
-  <div class="copy-wrap">
-    <span>083137741581 a.n. Yori Asanagi</span>
-    <button class="copy-btn" onclick="copyNomor()">Salin</button>
-  </div>
-  <small>Transfer via OVO akan dikenakan biaya Rp1.000</small>
-</div>
+<button class="btn" onclick="confirmPayment()">Saya sudah bayar</button>
+<p style="font-size: 12px; text-align:center">Pembayaran melalui OVO akan dikenakan biaya tambahan Rp1.000</p>
 
   </div>  <script>
-    function redirectWA() {
-      const pesan = encodeURIComponent(
-        `Halo Admin Emix Store, saya sudah melakukan pembayaran. Berikut detailnya:\n\nNama: \nJumlah transfer: \nWaktu transfer: \n\nBukti transfer telah saya upload di web.`
-      );
-      window.location.href = `https://wa.me/62895391694499?text=${pesan}`;
+    function toggleQRIS() {
+      const qris = document.getElementById('qris');
+      qris.style.display = qris.style.display === 'block' ? 'none' : 'block';
     }
 
-    function chatWhatsApp() {
-      const pesan = encodeURIComponent("Halo, saya ingin konfirmasi pembayaran.");
-      window.location.href = `https://wa.me/62895391694499?text=${pesan}`;
+    function copyDana() {
+      navigator.clipboard.writeText('083137741581').then(() => {
+        alert('Nomor DANA disalin ke clipboard');
+      });
     }
 
-    function copyNomor() {
-      navigator.clipboard.writeText("083137741581").then(() => alert("Nomor DANA berhasil disalin!"));
+    function confirmPayment() {
+      const message = encodeURIComponent("Halo Admin, saya sudah melakukan pembayaran. Berikut bukti transfer saya: [silakan upload screenshot bukti transfer]");
+      window.location.href = `https://wa.me/62895391694499?text=${message}`;
     }
   </script></body>
 </html>
