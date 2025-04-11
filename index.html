@@ -2,88 +2,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pembayaran Emix Store</title>
+  <title>Pembayaran Otomatis</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
       color: white;
-      background-image: url('https://qu.ax/uvQWt.jpg');
+      background: url('https://qu.ax/uvQWt.jpg') no-repeat center center fixed;
       background-size: cover;
-      background-attachment: fixed;
-      background-position: center;
     }
     .container {
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 30px;
-      border-radius: 16px;
-      margin: 50px auto;
-      max-width: 400px;
-      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 20px;
+      margin-top: 60px;
     }
     h1, h2 {
-      margin-bottom: 20px;
+      color: #FFD700;
     }
-    .product {
-      background-color: #222;
-      padding: 15px;
-      border-radius: 12px;
-      margin: 15px 0;
-    }
-    button, .qris-img {
-      margin-top: 10px;
-    }
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
+    .button {
+      background-color: #FFD700;
+      color: black;
+      padding: 12px 20px;
       border: none;
-      border-radius: 8px;
-      background-color: #00aaff;
-      color: white;
-      font-size: 16px;
+      border-radius: 10px;
       cursor: pointer;
+      font-weight: bold;
+      margin-top: 15px;
     }
-    .btn:active {
-      background-color: #008ecc;
+    .button:hover {
+      background-color: #e6c200;
     }
-    .hidden {
+    #qrisImage {
       display: none;
+      margin-top: 20px;
+      max-width: 100%;
+      border: 2px solid white;
+      border-radius: 12px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Pembayaran Produk</h1><div class="product">
-  <h2>Murid Nokos - Rp5.000</h2>
-  <button class="btn" onclick="showQR('nokos')">Tampilkan QRIS</button>
-  <img id="qris-nokos" src="https://example.com/qris-nokos.jpg" class="qris-img hidden" width="100%">
-  <button class="btn hidden" id="done-nokos" onclick="confirmWA('Murid Nokos', 5000)">Saya sudah bayar</button>
-</div>
+    <h1>Pembayaran Produk</h1>
+    <p>Pilih salah satu produk di bawah ini dan lakukan pembayaran menggunakan QRIS:</p><ul>
+  <li><strong>Murid Nokos:</strong> Rp5.000</li>
+  <li><strong>Murid Paid Promote Saluran:</strong> Rp10.000</li>
+  <li><strong>Transaksi Lainnya:</strong> Akan diberikan token/link khusus</li>
+</ul>
 
-<div class="product">
-  <h2>Murid PP Saluran - Rp10.000</h2>
-  <button class="btn" onclick="showQR('pp')">Tampilkan QRIS</button>
-  <img id="qris-pp" src="https://example.com/qris-pp.jpg" class="qris-img hidden" width="100%">
-  <button class="btn hidden" id="done-pp" onclick="confirmWA('Murid PP Saluran', 10000)">Saya sudah bayar</button>
-</div>
+<button class="button" onclick="showQRIS()">Tampilkan QRIS</button>
+<img id="qrisImage" src="https://i.ibb.co/rbFgqD3/QRIS-YORI-ORDERKUOTA.jpg" alt="QRIS">
 
-<div class="product">
-  <h2>Transaksi Bebas</h2>
-  <p>Gunakan link/token dari admin</p>
-  <button class="btn" onclick="location.href='https://wa.me/6289539164499?text=Halo%20saya%20ingin%20melakukan%20pembayaran%20bebas.'">Bayar Sekarang</button>
+<button class="button" onclick="window.location.href='https://wa.me/62895391694499?text=Halo+admin%2C+saya+sudah+melakukan+pembayaran+dan+berikut+bukti+transfer+saya.'">Saya Sudah Bayar</button>
+
+<div style="margin-top: 40px;">
+  <h2>Pembayaran Virtual</h2>
+  <p>Pembayaran otomatis <strong>hanya tersedia melalui aplikasi DANA</strong>.</p>
+  <p>Setelah menekan tombol <strong>“Bayar Sekarang”</strong>, kamu akan langsung diarahkan ke aplikasi DANA untuk menyelesaikan pembayaran ke:</p>
+  <ul>
+    <li><strong>Nomor DANA:</strong> 083137741581</li>
+    <li><strong>Atas Nama:</strong> Yori Asanagi</li>
+  </ul>
+  <p>Jika sudah melakukan pembayaran, tekan tombol <strong>“Saya Sudah Bayar”</strong> dan kamu akan diarahkan ke WhatsApp kami untuk verifikasi ulang dan mengirim bukti transfer.</p>
 </div>
 
   </div>  <script>
-    function showQR(id) {
-      document.getElementById('qris-' + id).classList.remove('hidden');
-      document.getElementById('done-' + id).classList.remove('hidden');
-    }
-
-    function confirmWA(namaProduk, nominal) {
-      const pesan = `Halo Emix, saya sudah transfer untuk produk *${namaProduk}* sebesar *Rp${nominal.toLocaleString()}* mohon dicek ya. Berikut bukti transfernya:`;
-      window.location.href = `https://wa.me/6289539164499?text=${encodeURIComponent(pesan)}`;
+    function showQRIS() {
+      document.getElementById('qrisImage').style.display = 'block';
     }
   </script></body>
 </html>
